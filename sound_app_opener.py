@@ -4,7 +4,7 @@ import numpy as np
 
 # Sound detection settings
 duration = 2  # seconds to listen
-threshold = 0.3  # adjust based on your environment
+threshold = 0.1  # Lowered threshold to detect quieter sounds
 
 # Define app commands
 app_commands = {
@@ -24,9 +24,10 @@ def open_app(app_name):
 
 def detect_sound(indata, frames, time, status):
     volume_norm = np.linalg.norm(indata) * 10
+    print(f"Sound level: {volume_norm:.2f}")
     if volume_norm > threshold:
-        print("Sound detected! Choose an app to open: chrome, notepad, calculator, vscode")
-        app_name = input("Enter app name: ")
+        print("Sound detected!")
+        app_name = input("Enter app name to open (chrome, notepad, calculator, vscode): ").strip().lower()
         open_app(app_name)
 
 print("Listening for sounds... (Clap or make a loud sound)")
